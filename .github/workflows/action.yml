@@ -31,7 +31,7 @@ jobs:
         
       - name: List files in the repository
         run: |
-          ls ${{ github.workspace }}
+          ls ${{ github.workspace }}/adf_publish
        
       - name: Azure Login
         uses: Azure/login@v1
@@ -47,10 +47,10 @@ jobs:
           # Provide the name of a resource group, only required for resource Group deployments.
           resourceGroupName: 'MonitoringADFDemoRG'
           # Specify the path or URL to the Azure Resource Manager template.
-          template: './datafactory-demo/cl-datafactory-df/ARMTemplateForFactory.json'
+          template: './adf_publish/cl-datafactory-df/ARMTemplateForFactory.json'
           # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
           deploymentMode: Incremental
           # Specifies the name of the resource group deployment to create.
           deploymentName: adf-deploy
           # Supply deployment parameter values.
-          parameters: './datafactory-demo/cl-datafactory-df/ARMTemplateParametersForFactory.json'
+          parameters: './adf_publish/cl-datafactory-df/ARMTemplateParametersForFactory.json'
