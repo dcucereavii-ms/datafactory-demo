@@ -12,6 +12,30 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      resourceGroupName:
+        description: 'Data Factory resource group name'
+        required: true
+      dataFactoryName:
+        description: 'Data factory name'
+        required: true
+      armTemplateFile:
+        description: 'ARM template file name'
+        required: false
+        default: 'ARMTemplateForFactory.json'
+      armTemplateParametersFile:
+        description: 'ARM template parameters file name'
+        required: false
+        default: 'ARMTemplateParametersForFactory.json'
+      additionalParameters:
+        description: 'Parameters which will be replaced in the ARM template'
+        required: false
+        default: ''
+      skipAzModuleInstallation:
+        description: 'Parameters which skip the Az module installation'
+        required: false
+        default: 'false'
+  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,7 +46,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
+      - name: Install Az PowerShell module
+        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
+        shell: pwsh
+      
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
@@ -38,19 +65,30 @@ jobs:
         with:
           creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
           environment: azurecloud
-          
-      - name: Deploy Azure Resource Manager (ARM) Template
-        uses: Azure/arm-deploy@v1
+       
+      - name: Run Pre-deployment script
+        run: |
+          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+            -armTemplate "${{ inputs.armTemplateFile }}" `
+            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+            -DataFactoryName "${{ inputs.dataFactoryName }}" `
+            -predeployment $true `
+            -deleteDeployment $false
+        shell: pwsh
+        
+      - name: Run ARM deploy
+        uses: azure/arm-deploy@v1
         with:
-          # Provide the scope of the deployment. Valid values are: 'resourcegroup', 'managementgroup', 'subscription'
-          scope: resourcegroup
-          # Provide the name of a resource group, only required for resource Group deployments.
-          resourceGroupName: 'MonitoringADFDemoRG'
-          # Specify the path or URL to the Azure Resource Manager template.
-          template: './adf_publish/cl-datafactory-df/ARMTemplateForFactory.json'
-          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
-          deploymentMode: Incremental
-          # Specifies the name of the resource group deployment to create.
-          deploymentName: adf-deploy
-          # Supply deployment parameter values.
-          parameters: './adf_publish/cl-datafactory-df/ARMTemplateParametersForFactory.json'
+          resourceGroupName: ${{ inputs.resourceGroupName }}
+          template: ${{ inputs.armTemplateFile }}
+          parameters: ${{ inputs.armTemplateParametersFile }} factoryName=${{ inputs.dataFactoryName }} ${{ inputs.additionalParameters }}
+
+      - name: Run Post-deployment script
+        run: |
+          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+            -armTemplate "${{ inputs.armTemplateFile }}" `
+            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+            -DataFactoryName '${{ inputs.dataFactoryName }}' `
+            -predeployment $false `
+            -deleteDeployment $true
+        shell: pwsh
