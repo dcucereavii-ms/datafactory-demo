@@ -89,7 +89,6 @@ function Get-SortedTriggers {
         [string] $DataFactoryName,
         [string] $ResourceGroupName
     )
-    Get-InstalledModule -Name Az -AllVersions
     $triggers = Get-AzDataFactoryV2Trigger -ResourceGroupName $ResourceGroupName -DataFactoryName $DataFactoryName
     $triggerDict = @{}
     $visited = @{}
