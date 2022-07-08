@@ -50,8 +50,8 @@ jobs:
         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
         shell: pwsh
         
-      - name: Install Az module 
-        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2
+      - name: Install Data Factory
+        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2 -Force 
         shell: pwsh
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
