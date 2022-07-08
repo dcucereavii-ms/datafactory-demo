@@ -68,7 +68,7 @@ jobs:
        
       - name: Run Pre-deployment script
         run: |
-          ${{ github.workspace }}/adf_publish/PrePostDeploymentScript.ps1 `
+          ./adf_publish/PrePostDeploymentScript.ps1 `
             -armTemplate "${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName "${{ inputs.dataFactoryName }}" `
@@ -85,7 +85,7 @@ jobs:
 
       - name: Run Post-deployment script
         run: |
-          ${{ github.workspace }}/adf_publish/PrePostDeploymentScript.ps1 `
+          ./adf_publish/PrePostDeploymentScript.ps1 `
             -armTemplate "${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName '${{ inputs.dataFactoryName }}' `
