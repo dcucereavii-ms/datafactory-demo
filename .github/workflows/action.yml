@@ -70,15 +70,15 @@ jobs:
           creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
           environment: azurecloud
        
-      - name: Run Pre-deployment script
-        run: |
-          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
-            -armTemplate "${{ inputs.armTemplateFile }}" `
-            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-            -DataFactoryName "${{ inputs.dataFactoryName }}" `
-            -predeployment $true `
-            -deleteDeployment $false
-        shell: pwsh
+#       - name: Run Pre-deployment script
+#         run: |
+#           ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+#             -armTemplate "${{ inputs.armTemplateFile }}" `
+#             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+#             -DataFactoryName "${{ inputs.dataFactoryName }}" `
+#             -predeployment $true `
+#             -deleteDeployment $false
+#         shell: pwsh
 
       - name: Run ARM deploy
         uses: azure/arm-deploy@v1
@@ -87,12 +87,12 @@ jobs:
           template: ${{ inputs.armTemplateFile }}
           parameters: ${{ inputs.armTemplateParametersFile }} factoryName=${{ inputs.dataFactoryName }} ${{ inputs.additionalParameters }}
 
-      - name: Run Post-deployment script
-        run: |
-          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
-            -armTemplate "${{ inputs.armTemplateFile }}" `
-            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-            -DataFactoryName '${{ inputs.dataFactoryName }}' `
-            -predeployment $false `
-            -deleteDeployment $true
-        shell: pwsh
+#       - name: Run Post-deployment script
+#         run: |
+#           ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+#             -armTemplate "${{ inputs.armTemplateFile }}" `
+#             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+#             -DataFactoryName '${{ inputs.dataFactoryName }}' `
+#             -predeployment $false `
+#             -deleteDeployment $true
+#         shell: pwsh
