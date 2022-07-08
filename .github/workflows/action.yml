@@ -43,7 +43,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 #       - name: Install Az PowerShell module
@@ -57,6 +56,14 @@ jobs:
 #       - name: Uninstall AzureRm
 #         run: Uninstall-AzureRm 
 #         shell: pwsh
+
+      - name: Install Az AllowClobber module
+        run: Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
+        shell: pwsh
+        
+      - name: Install Az DataFactory module
+        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.0 - Force
+        shell: pwsh
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
