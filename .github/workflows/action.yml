@@ -73,7 +73,7 @@ jobs:
       - name: Run Pre-deployment script
         run: |
           ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
-            -armTemplate "./cl-datafactory-df/${{ inputs.armTemplateFile }}" `
+            -armTemplate "adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName "${{ inputs.dataFactoryName }}" `
             -predeployment $true `
