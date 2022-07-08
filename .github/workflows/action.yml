@@ -59,6 +59,10 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}/adf_publish
+      
+      - name: List files in GitHub action path
+        run: |
+         ls ${{ github.action_path }}
        
       - name: Azure Login
         uses: Azure/login@v1
