@@ -84,8 +84,8 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           resourceGroupName: ${{ inputs.resourceGroupName }}
-          template: ${{ github.action_path }}/adf_publish/${{ inputs.armTemplateFile }}
-          parameters: ${{ github.action_path }}/adf_publish/${{ inputs.armTemplateParametersFile }}
+          template: ${{ github.action_path }}/adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}
+          parameters: ${{ github.action_path }}/adf_publish/cl-datafactory-df/${{ inputs.armTemplateParametersFile }}
 
 #       - name: Run Post-deployment script
 #         run: |
