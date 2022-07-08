@@ -55,7 +55,7 @@ jobs:
         shell: pwsh
         
       - name: Uninstall AzureRm
-        run: Uninstall-AzureRm -Force 
+        run: Uninstall-AzureRm 
         shell: pwsh
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
