@@ -68,7 +68,7 @@ jobs:
        
       - name: Run Pre-deployment script
         run: |
-          ./adf_publish/PrePostDeploymentScript.ps1 `
+          ${{ github.workspace }}/adf_publish/PrePostDeploymentScript.ps1 `
             -armTemplate "${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName "${{ inputs.dataFactoryName }}" `
@@ -80,12 +80,11 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           resourceGroupName: ${{ inputs.resourceGroupName }}
-          template: ${{ inputs.armTemplateFile }}
-          parameters: ${{ inputs.armTemplateParametersFile }} factoryName=${{ inputs.dataFactoryName }} ${{ inputs.additionalParameters }}
-
+          template: './adf_publish/cl-datafactory-df/ARMTemplateForFactory.json'
+          parameters: './adf_publish/cl-datafactory-df/ARMTemplateParametersForFactory.json'
       - name: Run Post-deployment script
         run: |
-          ./adf_publish/PrePostDeploymentScript.ps1 `
+          ${{ github.workspace }}/adf_publish/PrePostDeploymentScript.ps1 `
             -armTemplate "${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName '${{ inputs.dataFactoryName }}' `
