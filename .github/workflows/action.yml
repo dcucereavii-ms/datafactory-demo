@@ -68,7 +68,7 @@ jobs:
        
       - name: Run Pre-deployment script
         run: |
-          ${{ github.workspace }}/adf_publish/PrePostDeploymentScript.ps1 `
+          ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
             -armTemplate "${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName "${{ inputs.dataFactoryName }}" `
@@ -84,7 +84,7 @@ jobs:
           parameters: './adf_publish/cl-datafactory-df/ARMTemplateParametersForFactory.json'
       - name: Run Post-deployment script
         run: |
-          ${{ github.workspace }}/adf_publish/PrePostDeploymentScript.ps1 `
+          ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
             -armTemplate "${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName '${{ inputs.dataFactoryName }}' `
