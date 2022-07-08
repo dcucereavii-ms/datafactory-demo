@@ -73,7 +73,7 @@ jobs:
       - name: Run Pre-deployment script
         run: |
           ./adf_publish/PrePostDeploymentScript.ps1 `
-            -armTemplate "${{ inputs.armTemplateFile }}" `
+            -armTemplate "./cl-datafactory-df/${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName "${{ inputs.dataFactoryName }}" `
             -predeployment $true `
