@@ -47,7 +47,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Install Az PowerShell module
-        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') {InstalledModule -Name Az -AllVersions -Force }
+        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') {Get-Module -ListAvailable -Name Azure -Refresh}
         shell: pwsh
       
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
