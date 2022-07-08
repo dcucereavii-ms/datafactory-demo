@@ -1,5 +1,3 @@
-Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
-Install-Module -Name Az.DataFactory -RequiredVersion 1.0.0
 param
 (
     [parameter(Mandatory = $false)] [String] $armTemplate,
@@ -8,7 +6,6 @@ param
     [parameter(Mandatory = $false)] [Bool] $predeployment=$true,
     [parameter(Mandatory = $false)] [Bool] $deleteDeployment=$false
 )
-
 function getPipelineDependencies {
     param([System.Object] $activity)
     if ($activity.Pipeline) {
