@@ -1,3 +1,5 @@
+Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
+Install-Module -Name Az.DataFactory -RequiredVersion 1.0.0
 param
 (
     [parameter(Mandatory = $false)] [String] $armTemplate,
