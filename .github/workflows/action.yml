@@ -50,6 +50,10 @@ jobs:
         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
         shell: pwsh
         
+      - name: Install Az module 
+        run: Get-InstalledModule -Name Az -AllVersions
+        shell: pwsh
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
