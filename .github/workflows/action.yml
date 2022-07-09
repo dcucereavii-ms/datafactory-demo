@@ -45,9 +45,9 @@ jobs:
     runs-on: windows-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-#       - name: Install Az PowerShell module
-#         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
-#         shell: pwsh
+      - name: Install Az PowerShell module
+        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
+        shell: pwsh
         
 #       - name: Install Data Factory
 #         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2 -Force 
@@ -57,13 +57,13 @@ jobs:
 #         run: Uninstall-AzureRm 
 #         shell: pwsh
 
-      - name: Install Az AllowClobber module
-        run: Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
-        shell: pwsh
+#       - name: Install Az AllowClobber module
+#         run: Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
+#         shell: pwsh
         
-      - name: Install Az DataFactory module
-        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.0 -Force
-        shell: pwsh
+#       - name: Install Az DataFactory module
+#         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.0 -Force
+#         shell: pwsh
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
