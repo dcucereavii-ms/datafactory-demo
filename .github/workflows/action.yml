@@ -45,6 +45,9 @@ jobs:
     runs-on: windows-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: List PowerShell folder
+        run: |
+          ls c:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\
       - name: Install Az PowerShell module
         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
         shell: pwsh
@@ -73,10 +76,6 @@ jobs:
         with:
           ref: adf_publish
           path: adf_publish
-      
-      - name: List PowerShell folder
-        run: |
-          ls c:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\
    
       - name: List files in the repository
         run: |
