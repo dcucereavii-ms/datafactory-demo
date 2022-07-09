@@ -47,7 +47,7 @@ jobs:
     steps:
       - name: List PowerShell folder
         run: |
-          ls c:\Program Files (x86)\Microsoft SDKs\Azure\PowerShell\
+          ls c:\
       - name: Install Az PowerShell module
         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
         shell: pwsh
