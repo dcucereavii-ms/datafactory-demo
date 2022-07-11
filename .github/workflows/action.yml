@@ -48,9 +48,11 @@ jobs:
       - name: Install Az PowerShell module
         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -AllowClobber -Force}
         shell: pwsh
-      - name: Install Data Factory
-        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -Force 
-        shell: pwsh
+        
+#       - name: Install Data Factory
+#         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -Force 
+#         shell: pwsh
+        
 #       - name: List PowerShell folder
 #         run: |
 #           ls "C:\Program Files\PowerShell\7\Modules"      
