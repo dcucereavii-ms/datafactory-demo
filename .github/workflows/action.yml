@@ -95,11 +95,15 @@ jobs:
 #           $TenantId= "${{ secrets.TENANT_ID }}"
 #           $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ApplicationId, $SecuredPassword
 #           Connect-AzAccount -ServicePrincipal -TenantId $TenantId -Credential $Credential
+      - name: set az context
+        run: Set-AzContext
+        shell: pwsh  
         
       - name: Get Trigger
         run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-datafactory-df"  
         shell: pwsh
         
+      
 #       - name: Run Pre-deployment script
 #         run: |
 #           ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
