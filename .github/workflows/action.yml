@@ -126,12 +126,12 @@ jobs:
           template: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}
           parameters: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateParametersFile }}
 
-#       - name: Run Post-deployment script
-#         run: |
-#           ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
-#             -armTemplate "${{ inputs.armTemplateFile }}" `
-#             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-#             -DataFactoryName '${{ inputs.dataFactoryName }}' `
-#             -predeployment $false `
-#             -deleteDeployment $true
-#         shell: pwsh
+      - name: Run Post-deployment script
+        run: |
+          ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+            -armTemplate "${{ inputs.armTemplateFile }}" `
+            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+            -DataFactoryName '${{ inputs.dataFactoryName }}' `
+            -predeployment $false `
+            -deleteDeployment $true
+        shell: pwsh
