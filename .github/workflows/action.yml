@@ -63,7 +63,7 @@ jobs:
         shell: pwsh
         
       - name: Install Az DataFactory module
-        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2 -Force
+        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -Force
         shell: pwsh
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
