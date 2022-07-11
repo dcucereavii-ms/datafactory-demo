@@ -44,16 +44,16 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:       
+    steps:
+      - name: Install Az PowerShell module
+        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
+        shell: pwsh
       - name: Install Data Factory
         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2 -Force 
         shell: pwsh
       - name: List PowerShell folder
         run: |
-          ls "c:\Program Files (x86)\Microsoft SDKs\Azure\CLI2"
-      - name: Install Az PowerShell module
-        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
-        shell: pwsh
+          ls "C:\Program Files\PowerShell"
       - name: Get Data Factory Triggers
         run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-stg-datafactory"
         shell: pwsh  
