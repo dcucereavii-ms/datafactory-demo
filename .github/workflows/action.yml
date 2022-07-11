@@ -44,7 +44,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
+    steps:       
+      - name: Install Data Factory
+        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2 -Force 
+        shell: pwsh
       - name: List PowerShell folder
         run: |
           ls "c:\Program Files (x86)\Microsoft SDKs\Azure"
@@ -53,11 +56,7 @@ jobs:
         shell: pwsh
       - name: Get Data Factory Triggers
         run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-stg-datafactory"
-        shell: pwsh         
-        
-#       - name: Install Data Factory
-#         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2 -Force 
-#         shell: pwsh
+        shell: pwsh  
         
 #       - name: Uninstall AzureRm
 #         run: Uninstall-AzureRm 
