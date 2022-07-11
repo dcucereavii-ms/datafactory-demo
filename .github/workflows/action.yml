@@ -87,8 +87,7 @@ jobs:
         
       - name: Connect-AzAccount
         run: | 
-          $credentials = Get-Credential
-          Connect-AzAccount -ServicePrincipal -Credential $credentials -Tenant "${{ secrets.TENANT_ID }}"
+          Connect-AzAccount -Tenant "${{ secrets.TENANT_ID }}" -Subscription "${{ secrets.SUBSCRIPTION_ID }}" -Credential "${{ secrets.CLIENT_SECRET }}" -ServicePrincipal
         
 #           $azureAplicationId ="${{ secrets.CLIENT_ID }}"
 #           $azureTenantId= "${{ secrets.TENANT_ID }}"
