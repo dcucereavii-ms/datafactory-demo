@@ -97,7 +97,7 @@ jobs:
         run: ls "C:\Program Files\PowerShell\7\Modules"
         shell: pwsh
       - name: Connect AzAccount
-        run: Connect-AzAccount -Tenant "${{ secrets.TENANT_ID }}" -SubscriptionId "${{ secrets.SUBSCRIPTION_ID }}"
+        run: Connect-AzAccount -Tenant "72f988bf-86f1-41af-91ab-2d7cd011db47" -SubscriptionId "a4d6edf9-c4ca-46bb-b147-021e3b066e32"
         shell: pwsh
         
       - name: Get Data Factory Triggers
