@@ -49,7 +49,7 @@ jobs:
 #         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
 #         shell: pwsh
 #       - name: Install Data Factory
-#         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.0.2 -Force 
+#         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -Force 
 #         shell: pwsh
 #       - name: List PowerShell folder
 #         run: |
