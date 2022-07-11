@@ -48,21 +48,6 @@ jobs:
       - name: Install Az PowerShell module
         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -AllowClobber -Force}
         shell: pwsh
-        
-#       - name: Install Data Factory
-#         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -Force 
-#         shell: pwsh
-        
-#       - name: List PowerShell folder
-#         run: |
-#           ls "C:\Program Files\PowerShell\7\Modules"      
-#       - name: Uninstall AzureRm
-#         run: Uninstall-AzureRm 
-#         shell: pwsh
-
-#       - name: Install Az AllowClobber module
-#         run: Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
-#         shell: pwsh
       
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -70,14 +55,6 @@ jobs:
           ref: adf_publish
           path: adf_publish
     
-#       - name: List files in the repository
-#         run: |
-#           ls ${{ github.workspace }}/adf_publish
-      
-#       - name: List files in GitHub action path
-#         run: |
-#          ls ${{ github.action_path }}
-
       - name: Azure Login
         uses: Azure/login@v1
         with:
@@ -95,20 +72,11 @@ jobs:
           $azurePassword = ConvertTo-SecureString "${{ secrets.CLIENT_SECRET }}" -AsPlainText -Force
           $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
           Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal
-#           $AplicationId ="${{ secrets.CLIENT_ID }}"
-#           $SecuredPassword = "${{ secrets.CLIENT_SECRET }}"
-#           $TenantId= "${{ secrets.TENANT_ID }}"
-#           $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ApplicationId, $SecuredPassword
-#           Connect-AzAccount -ServicePrincipal -TenantId $TenantId -Credential $Credential
+
       - name: set az context
         run: Set-AzContext -SubscriptionName "${{ secrets.SUBSCRIPTION_ID }}"
         shell: pwsh  
         
-#       - name: Get Trigger
-#         run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-datafactory-df"  
-#         shell: pwsh
-        
-      
       - name: Run Pre-deployment script
         run: |
           ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
@@ -129,7 +97,7 @@ jobs:
       - name: Run Post-deployment script
         run: |
           ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
-            -armTemplate "${{ inputs.armTemplateFile }}" `
+            -armTemplate "adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}" `
             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
             -DataFactoryName '${{ inputs.dataFactoryName }}' `
             -predeployment $false `
