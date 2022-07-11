@@ -45,9 +45,9 @@ jobs:
     runs-on: windows-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-#       - name: Install Az PowerShell module
-#         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
-#         shell: pwsh
+      - name: Install Az PowerShell module
+        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
+        shell: pwsh
 #       - name: Install Data Factory
 #         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -Force 
 #         shell: pwsh
@@ -75,49 +75,24 @@ jobs:
 #       - name: List files in GitHub action path
 #         run: |
 #          ls ${{ github.action_path }}
+
       - name: Azure Login
         uses: Azure/login@v1
         with:
           creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
           environment: azurecloud
           
-      - name: Install Az DataFactory module
-        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -AllowClobber -Force
-        shell: pwsh
+#       - name: Install Az DataFactory module
+#         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -AllowClobber -Force
+#         shell: pwsh
         
-      - name: Connect-AzAccount
-        run: | 
-          $AplicationId ="${{ secrets.CLIENT_ID }}"
-          $SecuredPassword = "${{ secrets.CLIENT_SECRET }}"
-          $TenantId= "${{ secrets.TENANT_ID }}"
-          $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ApplicationId, $SecuredPassword
-          Connect-AzAccount -ServicePrincipal -TenantId $TenantId -Credential $Credential
- 
+#       - name: Connect-AzAccount
+#         run: | 
 #           $AplicationId ="${{ secrets.CLIENT_ID }}"
-#           $azureTenantId= "${{ secrets.TENANT_ID }}"
-#           $azurePassword = "${{ secrets.CLIENT_SECRET }}"
-#           $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
-#           Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal  
-          
-
-#       - name: Install Az PowerShell module
-#         run: Get-InstalledModule -Name Az -AllVersions
-#         shell: pwsh
-        
-#       - name: Change Directory
-#         run: cd "C:\Program Files\PowerShell\7\Modules"
-#         shell: pwsh
-        
-#       - name: List Directory
-#         run: ls "C:\Program Files\PowerShell\7\Modules"
-#         shell: pwsh
-#       - name: Connect AzAccount
-#         run: Connect-AzAccount -Tenant "72f988bf-86f1-41af-91ab-2d7cd011db47" -SubscriptionId "a4d6edf9-c4ca-46bb-b147-021e3b066e32"
-#         shell: pwsh
-        
-      - name: Get Data Factory Triggers 
-        run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-datafactory-df"
-        shell: pwsh
+#           $SecuredPassword = "${{ secrets.CLIENT_SECRET }}"
+#           $TenantId= "${{ secrets.TENANT_ID }}"
+#           $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ApplicationId, $SecuredPassword
+#           Connect-AzAccount -ServicePrincipal -TenantId $TenantId -Credential $Credential
         
       - name: Run Pre-deployment script
         run: |
