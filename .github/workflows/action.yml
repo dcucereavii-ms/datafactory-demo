@@ -46,7 +46,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Install Az PowerShell module
-        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -AllowClobber }
+        run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -AllVersions -Force -AllowClobber }
         shell: pwsh
 #       - name: Install Data Factory
 #         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -Force 
