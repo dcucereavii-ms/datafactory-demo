@@ -61,13 +61,7 @@ jobs:
 #       - name: Install Az AllowClobber module
 #         run: Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
 #         shell: pwsh
-        
-      - name: Install Az DataFactory module
-        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -AllowClobber -Force
-        shell: pwsh
-      - name: Connect AzAccount
-        run: Connect-AzAccount
-        shell: pwsh 
+      
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
@@ -81,7 +75,10 @@ jobs:
 #       - name: List files in GitHub action path
 #         run: |
 #          ls ${{ github.action_path }}
-       
+      - name: Install Az DataFactory module
+        run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -AllowClobber -Force
+        shell: pwsh
+        
       - name: Azure Login
         uses: Azure/login@v1
         with:
@@ -101,20 +98,11 @@ jobs:
 #       - name: Connect AzAccount
 #         run: Connect-AzAccount -Tenant "72f988bf-86f1-41af-91ab-2d7cd011db47" -SubscriptionId "a4d6edf9-c4ca-46bb-b147-021e3b066e32"
 #         shell: pwsh
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
-          environment: azurecloud  
+        
       - name: Get Data Factory Triggers 
         run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-datafactory-df"
         shell: pwsh
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
-          environment: azurecloud  
-          
+        
       - name: Run Pre-deployment script
         run: |
           ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
