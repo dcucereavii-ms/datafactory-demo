@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "cl-stg-datafactory"
+		},
+		"AdfByExample_connectionString": {
+			"value": ""
+		},
+		"AzureKeyVaultLS_properties_typeProperties_baseUrl": {
+			"value": "https://demo-project-kv-kv.vault.azure.net/"
+		},
+		"storageDataSetLS_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
+		},
+		"storageDataSourceLS_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
+		},
+		"storageDestinationLS_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
+		},
+		"storageLS_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
+		}
+	}
+}
