@@ -90,7 +90,11 @@ jobs:
         
       - name: Connect-AzAccount
         run: | 
-          Connect-AzAccount -Tenant "${{ secrets.TENANT_ID }}" -SubscriptionId "${{ secrets.SUBSCRIPTION_ID }}"
+          $azureAplicationId ="94747500-0c81-4daf-9518-fb02dd3c17cc"
+          $azureTenantId= "72f988bf-86f1-41af-91ab-2d7cd011db47"
+          $azurePassword = ConvertTo-SecureString "1NA8Q~Z.tlQC8DYnC7VE~GSezr09JyQnckiiUbXk" -AsPlainText -Force
+          $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
+          Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal
 #           $AplicationId ="${{ secrets.CLIENT_ID }}"
 #           $SecuredPassword = "${{ secrets.CLIENT_SECRET }}"
 #           $TenantId= "${{ secrets.TENANT_ID }}"
