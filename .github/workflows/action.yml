@@ -104,27 +104,27 @@ jobs:
         run: Set-AzContext -SubscriptionName "${{ secrets.SUBSCRIPTION_ID }}"
         shell: pwsh  
         
-      - name: Get Trigger
-        run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-datafactory-df"  
-        shell: pwsh
+#       - name: Get Trigger
+#         run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-datafactory-df"  
+#         shell: pwsh
         
       
-#       - name: Run Pre-deployment script
-#         run: |
-#           ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
-#             -armTemplate "adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}" `
-#             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-#             -DataFactoryName "${{ inputs.dataFactoryName }}" `
-#             -predeployment $true `
-#             -deleteDeployment $false
-#         shell: pwsh
+      - name: Run Pre-deployment script
+        run: |
+          ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
+            -armTemplate "adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}" `
+            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+            -DataFactoryName "${{ inputs.dataFactoryName }}" `
+            -predeployment $true `
+            -deleteDeployment $false
+        shell: pwsh
 
-#       - name: Run ARM deploy
-#         uses: azure/arm-deploy@v1
-#         with:
-#           resourceGroupName: ${{ inputs.resourceGroupName }}
-#           template: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}
-#           parameters: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateParametersFile }}
+      - name: Run ARM deploy
+        uses: azure/arm-deploy@v1
+        with:
+          resourceGroupName: ${{ inputs.resourceGroupName }}
+          template: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}
+          parameters: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateParametersFile }}
 
 #       - name: Run Post-deployment script
 #         run: |
