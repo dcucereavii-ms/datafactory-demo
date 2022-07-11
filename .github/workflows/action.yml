@@ -75,10 +75,19 @@ jobs:
 #       - name: List files in GitHub action path
 #         run: |
 #          ls ${{ github.action_path }}
+
       - name: Install Az DataFactory module
         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -AllowClobber -Force
         shell: pwsh
         
+      - name: Connect-AzAccount
+        run: | 
+          $azureAplicationId ="${{ secrets.CLIENT_ID }}"
+          $azureTenantId= "${{ secrets.TENANT_ID }}"
+          $azurePassword = "${{ secrets.CLIENT_SECRET }}"
+          $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
+          Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal  
+          
       - name: Azure Login
         uses: Azure/login@v1
         with:
