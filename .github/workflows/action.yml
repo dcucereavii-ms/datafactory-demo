@@ -96,6 +96,9 @@ jobs:
       - name: List Directory
         run: ls "C:\Program Files\PowerShell\7\Modules"
         shell: pwsh
+      - name: Connect AzAccount
+        run: Connect-AzAccount -Tenant "${{ secrets.TENANT_ID }}" -SubscriptionId "${{ secrets.SUBSCRIPTION_ID }}"
+        shell: pwsh
         
       - name: Get Data Factory Triggers
         run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-stg-datafactory"
