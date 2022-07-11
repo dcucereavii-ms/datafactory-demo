@@ -94,7 +94,7 @@ jobs:
         shell: pwsh
         
       - name: List Directory
-        run: ls -a "C:\Program Files\PowerShell\7\Modules"
+        run: ls "C:\Program Files\PowerShell\7\Modules"
         shell: pwsh
         
       - name: Get Data Factory Triggers
