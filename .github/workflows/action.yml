@@ -53,11 +53,7 @@ jobs:
         shell: pwsh
       - name: List PowerShell folder
         run: |
-          ls "C:\Program Files\PowerShell"
-      - name: Get Data Factory Triggers
-        run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-stg-datafactory"
-        shell: pwsh  
-        
+          ls "C:\Program Files\PowerShell\7"      
 #       - name: Uninstall AzureRm
 #         run: Uninstall-AzureRm 
 #         shell: pwsh
@@ -75,7 +71,7 @@ jobs:
         with:
           ref: adf_publish
           path: adf_publish
-   
+    
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}/adf_publish
@@ -89,7 +85,11 @@ jobs:
         with:
           creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
           environment: azurecloud
-       
+          
+      - name: Get Data Factory Triggers
+        run: Get-AzDataFactoryV2Trigger -ResourceGroupName "MonitoringADFDemoRG" -DataFactoryName "cl-stg-datafactory"
+        shell: pwsh
+        
       - name: Run Pre-deployment script
         run: |
           ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
