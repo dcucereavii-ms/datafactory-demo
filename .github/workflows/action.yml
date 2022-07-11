@@ -75,24 +75,28 @@ jobs:
 #       - name: List files in GitHub action path
 #         run: |
 #          ls ${{ github.action_path }}
-
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
+          environment: azurecloud
+          
       - name: Install Az DataFactory module
         run: Install-Module -Name Az.DataFactory -RequiredVersion 1.16.8 -AllowClobber -Force
         shell: pwsh
         
       - name: Connect-AzAccount
         run: | 
-          $azureAplicationId ="${{ secrets.CLIENT_ID }}"
-          $azureTenantId= "${{ secrets.TENANT_ID }}"
-          $azurePassword = "${{ secrets.CLIENT_SECRET }}"
-          $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
-          Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal  
+          $credentials = Get-Credential
+          Connect-AzAccount -ServicePrincipal -Credential $credentials -Tenant "${{ secrets.TENANT_ID }}"
+        
+#           $azureAplicationId ="${{ secrets.CLIENT_ID }}"
+#           $azureTenantId= "${{ secrets.TENANT_ID }}"
+#           $azurePassword = "${{ secrets.CLIENT_SECRET }}"
+#           $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
+#           Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal  
           
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
-          environment: azurecloud
+
 #       - name: Install Az PowerShell module
 #         run: Get-InstalledModule -Name Az -AllVersions
 #         shell: pwsh
