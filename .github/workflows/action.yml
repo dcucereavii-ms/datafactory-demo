@@ -96,7 +96,7 @@ jobs:
 #           $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ApplicationId, $SecuredPassword
 #           Connect-AzAccount -ServicePrincipal -TenantId $TenantId -Credential $Credential
       - name: set az context
-        run: Set-AzContext
+        run: Set-AzContext -SubscriptionName "${{ secrets.SUBSCRIPTION_ID }}"
         shell: pwsh  
         
       - name: Get Trigger
