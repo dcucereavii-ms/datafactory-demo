@@ -50,7 +50,7 @@ jobs:
         shell: pwsh
       - name: List PowerShell folder
         run: |
-          ls "c:\Program Files (x86)\Microsoft SDKs\Azure"
+          ls "c:\Program Files (x86)\Microsoft SDKs\Azure\CLI2"
       - name: Install Az PowerShell module
         run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
         shell: pwsh
