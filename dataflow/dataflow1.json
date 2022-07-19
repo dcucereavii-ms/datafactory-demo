@@ -32,6 +32,9 @@
 				},
 				{
 					"name": "DeriveSalesValueUSD"
+				},
+				{
+					"name": "PrepareOutputSchema"
 				}
 			],
 			"scriptLines": [
@@ -71,7 +74,18 @@
 				"     broadcast: 'auto')~> LookupExchangeRate",
 				"LookupExchangeRate derive(SalesValueUSD = {Unit Price}*{Units Sold}*ExchangeRate,",
 				"          Retailer = \"Jolly Good Ltd\",",
-				"          RunSeqNo = $RunSeqNo) ~> DeriveSalesValueUSD"
+				"          RunSeqNo = $RunSeqNo) ~> DeriveSalesValueUSD",
+				"DeriveSalesValueUSD select(mapColumn(",
+				"          SalesMonth = Period,",
+				"          Product,",
+				"          UnitsSold = {Units Sold},",
+				"          ExchangeRate,",
+				"          SalesValueUSD,",
+				"          Retailer,",
+				"          RunSeqNo",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> PrepareOutputSchema"
 			]
 		}
 	}
