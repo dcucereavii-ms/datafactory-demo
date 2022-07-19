@@ -35,6 +35,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     RunSeqNo as string",
+				"}",
 				"source(output(",
 				"          Period as date,",
 				"          Product as string,",
@@ -66,7 +69,9 @@
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> LookupExchangeRate",
-				"LookupExchangeRate derive(sales = ERROR_FUNCTION('')) ~> DeriveSalesValueUSD"
+				"LookupExchangeRate derive(SalesValueUSD = {Unit Price}*{Units Sold}*ExchangeRate,",
+				"          Retailer = \"Jolly Good Ltd\",",
+				"          RunSeqNo = $RunSeqNo) ~> DeriveSalesValueUSD"
 			]
 		}
 	}
