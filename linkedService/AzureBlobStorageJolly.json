@@ -1,0 +1,18 @@
+{
+	"name": "AzureBlobStorageJolly",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVaultLS",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "storage-access-key",
+				"secretVersion": "a9e485f17666412f96509e47a2b45a43"
+			}
+		}
+	}
+}
