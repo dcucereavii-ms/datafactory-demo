@@ -8,8 +8,14 @@
 		"AdfByExample_connectionString": {
 			"value": ""
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
 		"AzureKeyVaultLS_properties_typeProperties_baseUrl": {
 			"value": "https://demo-project-kv-kv.vault.azure.net/"
+		},
+		"GetSalesData_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
 		},
 		"storageDataSetLS_properties_typeProperties_connectionString_secretName": {
 			"value": "storage-access-key"
@@ -21,6 +27,24 @@
 			"value": "storage-access-key"
 		},
 		"storageLS_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
+		},
+		"AzureBlobStorageJolly_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://undefined.azuredatalakestore.net/webhdfs/v1"
+		},
+		"AzureDataLakeStore1_properties_typeProperties_tenant": {
+			"value": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://adfdemoteck.dfs.core.windows.net/"
+		},
+		"AzureBlobStorageJollyGood_properties_typeProperties_connectionString_secretName": {
+			"value": "storage-access-key"
+		},
+		"linkedServiceExchangeRate_properties_typeProperties_connectionString_secretName": {
 			"value": "storage-access-key"
 		},
 		"containerUri": {
