@@ -10,12 +10,28 @@
 						"type": "DatasetReference"
 					},
 					"name": "JollyGoodSales"
+				},
+				{
+					"linkedService": {
+						"referenceName": "linkedServiceExchangeRate",
+						"type": "LinkedServiceReference"
+					},
+					"name": "ExchangeRates"
 				}
 			],
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "filter"
+					"name": "ExcludeMonthTotal"
+				},
+				{
+					"name": "RatesToUSD"
+				},
+				{
+					"name": "LookupExchangeRate"
+				},
+				{
+					"name": "DeriveSalesValueUSD"
 				}
 			],
 			"scriptLines": [
@@ -29,7 +45,28 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> JollyGoodSales",
-				"JollyGoodSales filter(Product != \"Month Total\") ~> filter"
+				"source(output(",
+				"          FromCurrency as string,",
+				"          ToCurrency as string,",
+				"          Date as date,",
+				"          ExchangeRate as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'excel',",
+				"     container: 'jollygoodsales',",
+				"     fileName: 'ExchangeRates.xlsx',",
+				"     sheetName: 'Sheet1',",
+				"     firstRowAsHeader: true) ~> ExchangeRates",
+				"JollyGoodSales filter(Product != \"Month Total\") ~> ExcludeMonthTotal",
+				"ExchangeRates filter(ToCurrency == \"USD\") ~> RatesToUSD",
+				"ExcludeMonthTotal, RatesToUSD lookup(Currency == FromCurrency",
+				"     && Period == Date,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> LookupExchangeRate",
+				"LookupExchangeRate derive(sales = ERROR_FUNCTION('')) ~> DeriveSalesValueUSD"
 			]
 		}
 	}
