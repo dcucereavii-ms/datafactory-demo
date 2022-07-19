@@ -22,7 +22,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "GetSalesData",
+						"referenceName": "ASQL_dboSalesLoad",
 						"type": "DatasetReference"
 					},
 					"name": "dboSalesLoad"
@@ -97,16 +97,28 @@
 				"PrepareOutputSchema sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          Column_1 as string,",
-				"          Column_2 as string,",
-				"          Column_3 as string,",
-				"          Column_4 as string,",
-				"          Column_5 as string",
+				"          RowId as integer,",
+				"          Retailer as string,",
+				"          SalesMonth as date,",
+				"          Product as string,",
+				"          ManufacturerProductCode as string,",
+				"          SalesValueUSD as decimal(18,2),",
+				"          UnitsSold as integer",
 				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
-				"          RunSeqNo",
+				"          Retailer,",
+				"          SalesMonth,",
+				"          Product,",
+				"          SalesValueUSD,",
+				"          UnitsSold",
 				"     )) ~> dboSalesLoad"
 			]
 		}
