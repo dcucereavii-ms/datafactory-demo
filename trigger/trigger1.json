@@ -9,6 +9,12 @@
 					"referenceName": "MoveFiles",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "TransformJollyGoodSales",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
