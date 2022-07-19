@@ -270,6 +270,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "Sales.csv",
 						"folderPath": {
 							"value": "@{dataset().Directory}",
 							"type": "Expression"
