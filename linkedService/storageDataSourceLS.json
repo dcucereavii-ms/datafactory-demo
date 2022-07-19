@@ -1,6 +1,5 @@
 {
 	"name": "storageDataSourceLS",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureBlobStorage",
@@ -15,5 +14,6 @@
 				"secretVersion": "a9e485f17666412f96509e47a2b45a43"
 			}
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
